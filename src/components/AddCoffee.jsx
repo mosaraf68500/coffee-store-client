@@ -1,6 +1,32 @@
 import React from 'react';
 
 const AddCoffee = () => {
+
+    const handleAddCoffee=(e)=>{
+        e.preventDefault();
+        const target=e.target;
+        const name=target.name.value;
+        const chef=target.chef.value;
+        const supplier=target.supplier.value;
+        const taste=target.taste.value;
+        const category=target.category.value;
+        const details=target.details.value;
+        const photo=target.photo.value;
+        const newCoffee={name,chef,supplier, taste ,category,details,photo};
+        // console.log(newCoffee)
+
+        fetch('http://localhost:3000/addcoffee',{
+            method:"POST",
+            headers:{
+                'content-type':"application/json"
+            },
+            body:JSON.stringify(newCoffee)
+        })
+        .then(res=>res.json())
+        .then(data=>{
+            console.log(data)
+        })
+    }
     return (
         <div>
             <div className="w-3/5 mx-auto bg-gray-100 mt-10 shadow-md p-10 rounded-md">
@@ -11,37 +37,39 @@ const AddCoffee = () => {
     distribution of letters, as opposed to using Content here.
   </p>
 
-  <div className="space-y-4">
+  <form onSubmit={handleAddCoffee}>
+
+    <div className="space-y-4">
     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
       <div>
         <label className="block mb-1 font-medium">Name</label>
-        <input type="text" placeholder="Enter coffee name" className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500" />
+        <input name='name' type="text" placeholder="Enter coffee name" className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500" />
       </div>
       <div>
         <label className="block mb-1 font-medium">Chef</label>
-        <input type="text" placeholder="Enter coffee chef" className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500" />
+        <input name='chef' type="text" placeholder="Enter coffee chef" className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500" />
       </div>
       <div>
         <label className="block mb-1 font-medium">Supplier</label>
-        <input type="text" placeholder="Enter coffee supplier" className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500" />
+        <input name='supplier' type="text" placeholder="Enter coffee supplier" className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500" />
       </div>
       <div>
         <label className="block mb-1 font-medium">Taste</label>
-        <input type="text" placeholder="Enter coffee taste" className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500" />
+        <input name='taste' type="text" placeholder="Enter coffee taste" className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500" />
       </div>
       <div>
         <label className="block mb-1 font-medium">Category</label>
-        <input type="text" placeholder="Enter coffee category" className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500" />
+        <input name='category' type="text" placeholder="Enter coffee category" className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500" />
       </div>
       <div>
         <label className="block mb-1 font-medium">Details</label>
-        <input type="text" placeholder="Enter coffee details" className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500" />
+        <input name='details' type="text" placeholder="Enter coffee details" className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500" />
       </div>
     </div>
 
     <div>
       <label className="block mb-1 font-medium">Photo</label>
-      <input type="text" placeholder="Enter photo URL" className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500" />
+      <input name='photo' type="text" placeholder="Enter photo URL" className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500" />
     </div>
 
     <div>
@@ -50,6 +78,7 @@ const AddCoffee = () => {
       </button>
     </div>
   </div>
+  </form>
 </div>
 
         </div>
