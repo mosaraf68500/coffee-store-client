@@ -1,6 +1,7 @@
 import React from "react";
 import { FaEdit, FaRegEyeSlash } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import { Link } from "react-router";
 import Swal from "sweetalert2";
 
 const CoffeeCard = ({ coffee }) => {
@@ -59,9 +60,12 @@ const CoffeeCard = ({ coffee }) => {
           </p>
         </div>
         <div className="flex flex-col space-y-2 ml-4">
+         <Link to={`/addcoffee/${_id}`}>
           <button className="bg-yellow-400 hover:bg-yellow-500 text-white p-2 rounded-lg">
             <FaRegEyeSlash size={24} />
           </button>
+         
+         </Link>
           <button className="bg-gray-800 hover:bg-gray-700 text-white p-2 rounded-lg">
             <FaEdit size={22} />
           </button>
