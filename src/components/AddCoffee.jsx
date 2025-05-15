@@ -5,16 +5,10 @@ import { Link } from "react-router";
 const AddCoffee = () => {
   const handleAddCoffee = (e) => {
     e.preventDefault();
-    const target = e.target;
-    const name = target.name.value;
-    const chef = target.chef.value;
-    const supplier = target.supplier.value;
-    const taste = target.taste.value;
-    const category = target.category.value;
-    const details = target.details.value;
-    const photo = target.photo.value;
-    const newCoffee = { name, chef, supplier, taste, category, details, photo };
-    // console.log(newCoffee)
+
+    const form = e.target;
+    const formData = new FormData(form);
+    const newCoffee = Object.fromEntries(formData.entries());
 
     fetch("http://localhost:3000/addcoffee", {
       method: "POST",
@@ -25,6 +19,9 @@ const AddCoffee = () => {
     })
       .then((res) => res.json())
       .then((data) => {
+        if(data.insertedId){
+            alert('added coffeee successfully')
+        }
         console.log(data);
       });
   };
@@ -32,9 +29,12 @@ const AddCoffee = () => {
     <div>
       <div className="flex  items-center gap-2.5 px-8">
         <FaArrowLeftLong />
-        <Link className="text-lg font-semibold" to="/"> Back</Link>
+        <Link className="text-lg font-semibold" to="/">
+          {" "}
+          Back
+        </Link>
       </div>
-      
+
       <div className="w-3/5 mx-auto bg-gray-100 mt-10 shadow-md p-10 rounded-md">
         <h2 className="text-2xl font-bold text-center text-gray-800 mb-2">
           Add New Coffee
@@ -59,11 +59,11 @@ const AddCoffee = () => {
                 />
               </div>
               <div>
-                <label className="block mb-1 font-medium">Chef</label>
+                <label className="block mb-1 font-medium">Quantity</label>
                 <input
-                  name="chef"
-                  type="text"
-                  placeholder="Enter coffee chef"
+                  name="quantity"
+                  type="number"
+                  placeholder="Enter coffee quantity"
                   className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
                 />
               </div>
@@ -86,11 +86,11 @@ const AddCoffee = () => {
                 />
               </div>
               <div>
-                <label className="block mb-1 font-medium">Category</label>
+                <label className="block mb-1 font-medium">Price</label>
                 <input
-                  name="category"
-                  type="text"
-                  placeholder="Enter coffee category"
+                  name="price"
+                  type="number"
+                  placeholder="Enter coffee Price"
                   className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-amber-500"
                 />
               </div>

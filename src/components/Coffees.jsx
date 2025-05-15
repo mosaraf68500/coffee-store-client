@@ -16,7 +16,7 @@ const Coffees = ({CoffeePromise}) => {
                     <img className='w-[25px]' src={img} alt="" />
                 </div>
             </div>
-            <div className='w-11/12 mx-auto grid grid-cols-2 gap-4 justify-center items-center my-10'>
+            <div className='w-10/12 mx-auto grid grid-cols-2 gap-4 justify-center items-center my-10'>
                 {
                     coffeeData.map(coffee=><CoffeeCard coffee={coffee} key={coffee._id}></CoffeeCard>)
                 }

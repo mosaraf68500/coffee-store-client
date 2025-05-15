@@ -1,9 +1,43 @@
 import React from "react";
 import { FaEdit, FaRegEyeSlash } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
+import Swal from "sweetalert2";
 
 const CoffeeCard = ({ coffee }) => {
-  const { _id, name, chef,  category, photo } = coffee;
+  const { _id, name, quantity, price, photo } = coffee;
+
+ const handleDelete = (id) => {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, delete it!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      fetch(`http://localhost:3000/addcoffee/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.deletedCount > 0) {
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your coffee item has been deleted.",
+              icon: "success",
+            });
+          }
+        })
+        .catch((error) => {
+          Swal.fire("Error", "Failed to delete item", "error");
+          console.error("Delete error:", error);
+        });
+    }
+  });
+};
+
 
   return (
     <div>
@@ -18,10 +52,10 @@ const CoffeeCard = ({ coffee }) => {
             <span className="font-semibold">Name:</span> {name}
           </p>
           <p className="text-gray-800">
-            <span className="font-semibold">Chef:</span> {chef}
+            <span className="font-semibold">quantity:</span> {quantity}
           </p>
           <p className="text-gray-800">
-            <span className="font-semibold">Price:</span> {category}
+            <span className="font-semibold">Price:</span> {price}
           </p>
         </div>
         <div className="flex flex-col space-y-2 ml-4">
@@ -29,10 +63,13 @@ const CoffeeCard = ({ coffee }) => {
             <FaRegEyeSlash size={24} />
           </button>
           <button className="bg-gray-800 hover:bg-gray-700 text-white p-2 rounded-lg">
-           <FaEdit size={22} />
+            <FaEdit size={22} />
           </button>
-          <button className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg">
-           <MdDelete size={24} />
+          <button
+            onClick={() => handleDelete(_id)}
+            className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg"
+          >
+            <MdDelete size={24} />
           </button>
         </div>
       </div>
