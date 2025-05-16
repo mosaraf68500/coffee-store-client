@@ -1,7 +1,25 @@
-import React from "react";
+import React, { use } from "react";
 import { Link } from "react-router";
+import { AuthContex } from "../Contex/AuthContex";
 
 const SignUp = () => {
+    const {createUser}=use(AuthContex);
+    // console.log(createUser)
+
+    const handeSignUp=(e)=>{
+        e.preventDefault();
+        const form=e.target;
+        const formData= new FormData(form);
+        const email=formData.get("email");
+        const password=formData.get("password");
+        createUser(email,password)
+        .then(result=>{
+            console.log(result)
+        })
+        .catch(error=>{
+            console.log(error)
+        })
+    }
   return (
     <div className="flex flex-col max-w-md mx-auto p-6 rounded-md sm:p-10 dark:bg-gray-50 dark:text-gray-800">
       <div className="mb-8 text-center">
@@ -10,7 +28,7 @@ const SignUp = () => {
           Sign Up to access your account
         </p>
       </div>
-      <form className="space-y-12">
+      <form onSubmit={handeSignUp} className="space-y-12">
         <div className="space-y-4">
           <div>
             <label htmlFor="email" className="block mb-2 text-sm">
@@ -49,8 +67,8 @@ const SignUp = () => {
         <div className="space-y-2">
           <div>
             <button
-              type="button"
-              className="w-full px-8 py-3 font-semibold rounded-md dark:bg-violet-600 dark:text-gray-50"
+              type="submit"
+              className="w-full cursor-pointer px-8 py-3 font-semibold rounded-md dark:bg-violet-600 dark:text-gray-50"
             >
               Sign Up
             </button>
