@@ -12,13 +12,19 @@ const SignUp = () => {
     const form = e.target;
     const formData = new FormData(form);
 
-    const { email, password, ...profile } = Object.fromEntries(
+    const { email, password, ...restFormData } = Object.fromEntries(
       formData.entries()
     );
     //    console.log(email,password,profile)
     createUser(email, password)
       .then((result) => {
         console.log(result);
+        const profile={
+            email,
+            ...restFormData,
+            creationTime:result.user?.metadata?.creationTime,
+            lastSignInTime:result.user?.metadata?.lastSignInTime
+        }
 
         // add database on profile
 
