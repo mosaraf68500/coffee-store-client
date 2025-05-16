@@ -7,6 +7,8 @@ import UpdateCoffee from "../components/UpdateCoffee";
 import Hero from "../components/Hero";
 import HomeCard from "../components/HomeCard";
 import CoffeeDetails from "../components/CoffeeDetails";
+import SignIn from "../components/SignIn";
+import SignUp from "../components/SignUp";
 
 export const router = createBrowserRouter([
   {
@@ -27,7 +29,8 @@ export const router = createBrowserRouter([
         Component: AddCoffee,
       },
       {
-        path: "updatecoffee",
+        path: "/updatecoffee/:id",
+        loader:({params})=>fetch(`http://localhost:3000/addcoffee/${params.id}`),
         Component: UpdateCoffee,
       },
       {
@@ -42,6 +45,14 @@ export const router = createBrowserRouter([
         path:'/addcoffee/:id',
         loader:({params})=>fetch(`http://localhost:3000/addcoffee/${params.id}`),
         Component:CoffeeDetails
+      },
+      {
+        path:'signin',
+        Component:SignIn
+      },
+      {
+        path:'signup',
+        Component:SignUp
       }
     ],
   },
