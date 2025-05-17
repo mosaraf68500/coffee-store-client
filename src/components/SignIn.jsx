@@ -1,7 +1,40 @@
-import React from 'react';
+import React, { use } from 'react';
 import { Link } from 'react-router';
+import { AuthContex } from '../Contex/AuthContex';
 
 const SignIn = () => {
+    const {loginUser}=use(AuthContex);
+
+    const handleLogin=(e)=>{
+        e.preventDefault();
+        const form=e.target;
+        const email=form.email.value;
+        const password=form.password.value;
+        loginUser(email,password)
+        .then(res=>{
+            const userInFo={
+                email,
+                lastSignInTime:res.user?.metadata?.lastSignInTime
+            }
+
+            fetch("http://localhost:3000/profiles",{
+                method:'PATCH',
+                headers:{
+                    'content-type':'application/json'
+                },
+                body:JSON.stringify(userInFo)
+            })
+            .then(res=>res.json())
+            .then(data=>{
+                console.log(data)
+            })
+        })
+        .catch(err=>{
+            console.log(err)
+        })
+    }
+
+    
     return (
          <div className="flex flex-col max-w-md mx-auto p-6 rounded-md sm:p-10 dark:bg-gray-50 dark:text-gray-800">
       <div className="mb-8 text-center">
@@ -10,7 +43,7 @@ const SignIn = () => {
           Sign In to access your account
         </p>
       </div>
-      <form className="space-y-12">
+      <form onSubmit={handleLogin} className="space-y-12">
         <div className="space-y-4">
           <div>
             <label htmlFor="email" className="block mb-2 text-sm">
@@ -49,8 +82,8 @@ const SignIn = () => {
         <div className="space-y-2">
           <div>
             <button
-              type="button"
-              className="w-full px-8 py-3 font-semibold rounded-md dark:bg-violet-600 dark:text-gray-50"
+              type="submit"
+              className="w-full cursor-pointer px-8 py-3 font-semibold rounded-md dark:bg-violet-600 dark:text-gray-50"
             >
               Sign In
             </button>
