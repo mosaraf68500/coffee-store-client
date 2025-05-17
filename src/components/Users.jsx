@@ -16,19 +16,21 @@ const Users = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/profiles/${id}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://coffe-store-server-sigma-ruddy.vercel.app/profiles/${id}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount) {
-                 const remaingUser=users.filter(user=>user._id !==id)
-                 setUsers(remaingUser)
+              const remaingUser = users.filter((user) => user._id !== id);
+              setUsers(remaingUser);
               Swal.fire({
                 title: "Deleted!",
                 text: "Your profile has been deleted.",
                 icon: "success",
-
               });
             }
           });

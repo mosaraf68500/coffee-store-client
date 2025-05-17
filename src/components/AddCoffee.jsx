@@ -10,7 +10,7 @@ const AddCoffee = () => {
     const formData = new FormData(form);
     const newCoffee = Object.fromEntries(formData.entries());
 
-    fetch("http://localhost:3000/addcoffee", {
+    fetch("https://coffe-store-server-sigma-ruddy.vercel.app/addcoffee", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -19,8 +19,8 @@ const AddCoffee = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        if(data.insertedId){
-            alert('added coffeee successfully')
+        if (data.insertedId) {
+          alert("added coffeee successfully");
         }
         console.log(data);
       });

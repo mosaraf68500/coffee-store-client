@@ -1,42 +1,41 @@
-import React, { use } from 'react';
-import { Link } from 'react-router';
-import { AuthContex } from '../Contex/AuthContex';
+import React, { use } from "react";
+import { Link } from "react-router";
+import { AuthContex } from "../Contex/AuthContex";
 
 const SignIn = () => {
-    const {loginUser}=use(AuthContex);
+  const { loginUser } = use(AuthContex);
 
-    const handleLogin=(e)=>{
-        e.preventDefault();
-        const form=e.target;
-        const email=form.email.value;
-        const password=form.password.value;
-        loginUser(email,password)
-        .then(res=>{
-            const userInFo={
-                email,
-                lastSignInTime:res.user?.metadata?.lastSignInTime
-            }
+  const handleLogin = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+    loginUser(email, password)
+      .then((res) => {
+        const userInFo = {
+          email,
+          lastSignInTime: res.user?.metadata?.lastSignInTime,
+        };
 
-            fetch("http://localhost:3000/profiles",{
-                method:'PATCH',
-                headers:{
-                    'content-type':'application/json'
-                },
-                body:JSON.stringify(userInFo)
-            })
-            .then(res=>res.json())
-            .then(data=>{
-                console.log(data)
-            })
+        fetch("https://coffe-store-server-sigma-ruddy.vercel.app/profiles", {
+          method: "PATCH",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(userInFo),
         })
-        .catch(err=>{
-            console.log(err)
-        })
-    }
+          .then((res) => res.json())
+          .then((data) => {
+            console.log(data);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
-    
-    return (
-         <div className="flex flex-col max-w-md mx-auto p-6 rounded-md sm:p-10 dark:bg-gray-50 dark:text-gray-800">
+  return (
+    <div className="flex flex-col max-w-md mx-auto p-6 rounded-md sm:p-10 dark:bg-gray-50 dark:text-gray-800">
       <div className="mb-8 text-center">
         <h1 className="my-3 text-4xl font-bold">Sign In</h1>
         <p className="text-sm dark:text-gray-600">
@@ -98,7 +97,7 @@ const SignIn = () => {
         </div>
       </form>
     </div>
-    );
+  );
 };
 
 export default SignIn;

@@ -14,13 +14,16 @@ const UpdateCoffee = () => {
     const formData = new FormData(form);
     const updateCoffee = Object.fromEntries(formData.entries());
 
-    fetch(`http://localhost:3000/addcoffee/${_id}`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json",
-      },
-      body: JSON.stringify(updateCoffee),
-    })
+    fetch(
+      `https://coffe-store-server-sigma-ruddy.vercel.app/addcoffee/${_id}`,
+      {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(updateCoffee),
+      }
+    )
       .then((res) => res.json())
       .then((data) => {
         // console.log(data)

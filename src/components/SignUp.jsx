@@ -19,16 +19,16 @@ const SignUp = () => {
     createUser(email, password)
       .then((result) => {
         console.log(result);
-        const profile={
-            email,
-            ...restFormData,
-            creationTime:result.user?.metadata?.creationTime,
-            lastSignInTime:result.user?.metadata?.lastSignInTime
-        }
+        const profile = {
+          email,
+          ...restFormData,
+          creationTime: result.user?.metadata?.creationTime,
+          lastSignInTime: result.user?.metadata?.lastSignInTime,
+        };
 
         // add database on profile
 
-        fetch("http://localhost:3000/profiles", {
+        fetch("https://coffe-store-server-sigma-ruddy.vercel.app/profiles", {
           method: "POST",
           headers: {
             "content-Type": "application/json",

@@ -8,38 +8,40 @@ import Swal from "sweetalert2";
 const CoffeeCard = ({ coffee }) => {
   const { _id, name, quantity, price, photo } = coffee;
 
- const handleDelete = (id) => {
-  Swal.fire({
-    title: "Are you sure?",
-    text: "You won't be able to revert this!",
-    icon: "warning",
-    showCancelButton: true,
-    confirmButtonColor: "#3085d6",
-    cancelButtonColor: "#d33",
-    confirmButtonText: "Yes, delete it!",
-  }).then((result) => {
-    if (result.isConfirmed) {
-      fetch(`http://localhost:3000/addcoffee/${id}`, {
-        method: "DELETE",
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.deletedCount > 0) {
-            Swal.fire({
-              title: "Deleted!",
-              text: "Your coffee item has been deleted.",
-              icon: "success",
-            });
+  const handleDelete = (id) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(
+          `https://coffe-store-server-sigma-ruddy.vercel.app/addcoffee/${id}`,
+          {
+            method: "DELETE",
           }
-        })
-        .catch((error) => {
-          Swal.fire("Error", "Failed to delete item", "error");
-          console.error("Delete error:", error);
-        });
-    }
-  });
-};
-
+        )
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.deletedCount > 0) {
+              Swal.fire({
+                title: "Deleted!",
+                text: "Your coffee item has been deleted.",
+                icon: "success",
+              });
+            }
+          })
+          .catch((error) => {
+            Swal.fire("Error", "Failed to delete item", "error");
+            console.error("Delete error:", error);
+          });
+      }
+    });
+  };
 
   return (
     <div>
@@ -61,17 +63,16 @@ const CoffeeCard = ({ coffee }) => {
           </p>
         </div>
         <div className="flex flex-col space-y-2 ml-4">
-         <Link to={`/addcoffee/${_id}`}>
-          <button className="bg-yellow-400 hover:bg-yellow-500 text-white p-2 rounded-lg">
-            <FaRegEyeSlash size={24} />
-          </button>
-         
-         </Link>
-         <Link to={`/updatecoffee/${_id}`}>
-          <button className="bg-gray-800 hover:bg-gray-700 text-white p-2 rounded-lg">
-            <FaEdit size={22} />
-          </button>
-         </Link>
+          <Link to={`/addcoffee/${_id}`}>
+            <button className="bg-yellow-400 hover:bg-yellow-500 text-white p-2 rounded-lg">
+              <FaRegEyeSlash size={24} />
+            </button>
+          </Link>
+          <Link to={`/updatecoffee/${_id}`}>
+            <button className="bg-gray-800 hover:bg-gray-700 text-white p-2 rounded-lg">
+              <FaEdit size={22} />
+            </button>
+          </Link>
           <button
             onClick={() => handleDelete(_id)}
             className="bg-red-500 hover:bg-red-600 text-white p-2 rounded-lg"

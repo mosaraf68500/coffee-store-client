@@ -31,7 +31,10 @@ export const router = createBrowserRouter([
       },
       {
         path: "/updatecoffee/:id",
-        loader:({params})=>fetch(`http://localhost:3000/addcoffee/${params.id}`),
+        loader: ({ params }) =>
+          fetch(
+            `https://coffe-store-server-sigma-ruddy.vercel.app/addcoffee/${params.id}`
+          ),
         Component: UpdateCoffee,
       },
       {
@@ -43,23 +46,27 @@ export const router = createBrowserRouter([
         Component: HomeCard,
       },
       {
-        path:'/addcoffee/:id',
-        loader:({params})=>fetch(`http://localhost:3000/addcoffee/${params.id}`),
-        Component:CoffeeDetails
+        path: "/addcoffee/:id",
+        loader: ({ params }) =>
+          fetch(
+            `https://coffe-store-server-sigma-ruddy.vercel.app/addcoffee/${params.id}`
+          ),
+        Component: CoffeeDetails,
       },
       {
-        path:'signin',
-        Component:SignIn
+        path: "signin",
+        Component: SignIn,
       },
       {
-        path:'signup',
-        Component:SignUp
+        path: "signup",
+        Component: SignUp,
       },
       {
-        path:"users",
-        loader:()=>fetch('http://localhost:3000/profiles'),
-        Component:Users
-      }
+        path: "users",
+        loader: () =>
+          fetch("https://coffe-store-server-sigma-ruddy.vercel.app/profiles"),
+        Component: Users,
+      },
     ],
   },
 ]);
